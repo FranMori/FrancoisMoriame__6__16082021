@@ -5,6 +5,7 @@ const bodyParser = require('body-parser')
 const User = require ('./models/user')
 const userRoutes = require('./routes/user')
 
+const sauceRoutes = require('./routes/sauce')
 
 
 const app = express()
@@ -27,8 +28,8 @@ mongoose.connect('mongodb+srv://Dazak:openclassrooms@cluster0.8sae2.mongodb.net/
   .then(() => console.log('Connexion à MongoDB réussie !'))
   .catch(() => console.log('Connexion à MongoDB échouée !'));
 
-
 app.use('/api/auth', userRoutes)
+app.use('/api/sauces', sauceRoutes)
 
 module.exports = app
 
