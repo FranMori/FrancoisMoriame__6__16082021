@@ -1,14 +1,16 @@
 const express = require('express')
 const mongoose = require('mongoose')
-const bodyParser = require('body-parser')
-
+// const bodyParser = require('body-parser')
+const app = express()
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
 const User = require ('./models/user')
 const userRoutes = require('./routes/user')
 
 const sauceRoutes = require('./routes/sauce')
 
 
-const app = express()
+
 
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -17,10 +19,9 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({
-  extended: true
-}));
+
+
+
 
 mongoose.connect('mongodb+srv://Dazak:openclassrooms@cluster0.8sae2.mongodb.net/myFirstDatabase?retryWrites=true&w=majority',
   { useNewUrlParser: true,
