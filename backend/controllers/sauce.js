@@ -1,18 +1,16 @@
 const Sauce = require('../models/sauce')
-const express = require('express')
-const multer = require('multer')
-const upload = multer({ dest: 'images' }).single('images')
 
-exports.createSauce =  (req,res,next) => {
-  console.log(req.body)
-  upload(req, res)
+exports.createSauce =  (req, res, next) => {
+  const sauceObject = JSON.parse(req.body.sauce)
+  delete sauceObject._id
   const sauce = new Sauce ({
+    // ...sauceObject,
     name: req.body.name,
     manufacturer: req.body.manufacturer,
     description: req.body.description,
-    imageUrl: req.body.imageUrl,
+    imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
     mainPepper: req.body.mainPepper,
-    heat: req.body.heat,
+    heat: req.body.heat
   })
   sauce.save()
     .then(() => res.status(201).json({message:'Sauce enregistrée'}))
