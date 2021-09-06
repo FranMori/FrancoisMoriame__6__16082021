@@ -3,6 +3,7 @@ const fs = require('fs')
 
 exports.createSauce =  (req, res, next) => {
   const sauceObject = JSON.parse(req.body.sauce)
+  console.log(sauceObject)
   const sauce = new Sauce ({
     ...sauceObject,
     imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
@@ -48,4 +49,36 @@ exports.getAllSauces =  (req,res,next) => {
   Sauce.find()
     .then(sauces => res.status(200).json(sauces))
     .catch(error => res.status(400).json({error}))
+}
+
+exports.likeStatus = (req,res,next) => {
+  const user = req.body.userId
+  const likeValue = req.body.likeValue
+
+  Sauce.updateOne({_id : req.params.id})
+  .then(sauce => {
+    if(likeValue ===1) {
+      {$inc: {likes: 1}}
+      sauce.likes += 1
+      sauces.usersLiked.push(user)
+    }
+    else if (likedValue === -1) {
+      sauce.dislikes -= 1
+      sauce.usersDisliked.push(req.body.userId)
+    }
+    else if(likeValue === 0) {
+      Sauce.findOne ({ _id : req.params.id})
+      .then((sauce) => {
+        if (sauce.usersLiked.includes(user)) {
+          Sauce.updateOne(
+            {_id: req.params.id},
+            {$pull: {usersLiked: user},
+          $inc: {likes: -1},
+        }
+          ).then(() => res.status(200).json({message: "Vous n'aimez plus cette sauce"}))
+          .catch((error) => res.status(400).json({error}))
+        }
+      })
+    }
+  })
 }
