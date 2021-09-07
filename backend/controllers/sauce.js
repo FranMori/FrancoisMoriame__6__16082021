@@ -1,5 +1,6 @@
 const Sauce = require('../models/sauce')
 const fs = require('fs')
+const sauce = require('../models/sauce')
 
 exports.createSauce =  (req, res, next) => {
   const sauceObject = JSON.parse(req.body.sauce)
@@ -55,14 +56,14 @@ exports.likeStatus = (req,res,next) => {
   const user = req.body.userId
   const likeValue = req.body.likeValue
 
-  Sauce.updateOne({_id : req.params.id})
+  Sauce.updateOne({id : req.params.id})
   .then(sauce => {
-    if(likeValue ===1) {
-      {$inc: {likes: 1}}
+    if(likeValue === 1) {
+      { $inc: {likes: 1}}
       sauce.likes += 1
       sauces.usersLiked.push(user)
     }
-    else if (likedValue === -1) {
+    else if (likeValue === -1) {
       sauce.dislikes -= 1
       sauce.usersDisliked.push(req.body.userId)
     }
@@ -80,5 +81,7 @@ exports.likeStatus = (req,res,next) => {
         }
       })
     }
-  })
+  }).then(result  => {console.log(result) 
+    res.status(200).json({userId: user, like: sauce.likes})})
+  .catch((error) => res.status(400).json({error}))
 }
