@@ -19,7 +19,6 @@ bcrypt.hash(req.body.password, 10)
 exports.login = (req, res, next) => {
   User.findOne({ email: req.body.email})
   .then(user => {
-    console.log(user)
     if (!user) {
       return res.status(401).json({error:'Utilisateur non trouvé'})
     }
