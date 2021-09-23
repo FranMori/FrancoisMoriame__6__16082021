@@ -3,7 +3,6 @@ const mongoose = require('mongoose')
 const path = require('path')
 const cors = require('cors')
 
-// const User = require ('./models/user')
 const userRoutes = require('./routes/user')
 
 

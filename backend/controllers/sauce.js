@@ -95,35 +95,5 @@ exports.likeStatus = (req,res,next) => {
       }
       }
     )}
-  
-    
-
-
-  // Sauce.updateOne({id : req.params.id})
-  // .then(sauce => {
-  //   if(likeValue === 1) {
-  //     { $inc: {likes: 1}}
-  //     sauce.likes += 1
-  //     sauces.usersLiked.push(user)
-  //   }
-  //   else if (likeValue === -1) {
-  //     sauce.dislikes += 1
-  //     sauce.usersDisliked.push(req.body.userId)
-  //   }
-  //   else if(likeValue === 0) {
-  //     Sauce.findOne ({ _id : req.params.id})
-  //     .then((sauce) => {
-  //       if (sauce.usersLiked.includes(user)) {
-  //         Sauce.updateOne(
-  //           {_id: req.params.id},
-  //           {$pull: {usersLiked: user},
-  //         $inc: {likes: -1},
-  //       }
-  //         ).then(() => res.status(200).json({message: "Vous n'aimez plus cette sauce"}))
-  //         .catch((error) => res.status(400).json({error}))
-  //       }
-  //     })
-  //   }
-  // }).then(result  => {res.status(200).json({userId: user, like: sauce.likes})})
-  // .catch((error) => res.status(400).json({error}))
+ 
 
